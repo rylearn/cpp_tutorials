@@ -3,17 +3,18 @@
 #include <complex> // for comparison
 
 namespace my_implementation {
+	template<typename Scalar>
 	class complex {
-		double re, im;
-		double base, exp;
+		Scalar re, im;
+		Scalar base, exp;
 
 	public:
 		
-		complex(double r, double i) :re{r}, im{i} {
+		complex(const Scalar& r, const Scalar& i) :re{r}, im{i} {
 			updatePolar();
 		}
 
-		complex(double r) :re{r}, im{0} {
+		complex(Scalar r) :re{r}, im{0} {
 			updatePolar();
 		}
 
@@ -21,37 +22,37 @@ namespace my_implementation {
 			updatePolar();
 		}
 
-		double real() const { 
+		Scalar real() const { 
 			return re;
 		}
 
-		void real(double d) {
+		void real(Scalar d) {
 			re = d;
 		}
 
-		double imag() const {
+		Scalar imag() const {
 			return im;
 		}
 
-		void imag(double d) {
+		void imag(Scalar d) {
 			im = d;
 		}
 
-		complex& operator+=(complex z) {
+		complex<Scalar>& operator+=(complex<Scalar> z) {
 			re += z.re;
 			im += z. im;
 			return *this;
 		}
 
-		complex& operator-=(complex z) {
+		complex<Scalar>& operator-=(complex<Scalar> z) {
 			re -= z.re;
 			im -= z.im;
 			return *this;
 		}
 
-		complex& operator*=(complex z) {
-			double old_re = re;
-			double old_im = im;
+		complex<Scalar>& operator*=(complex<Scalar> z) {
+			Scalar old_re = re;
+			Scalar old_im = im;
 			re = old_re * z.re - old_im * z.im;
 			im = old_re * z.im + old_im * z.re;
 			updatePolar();
@@ -71,9 +72,9 @@ namespace my_implementation {
 			im = base * sin(exp);
 		}
 
-		complex& operator/=(complex z) {
-			double old_base = base;
-			double old_exp = exp;
+		complex<Scalar>& operator/=(complex<Scalar> z) {
+			Scalar old_base = base;
+			Scalar old_exp = exp;
 			base = old_base / z.base;
 			exp = old_exp - z.exp;
 			updateRect();
@@ -82,36 +83,42 @@ namespace my_implementation {
 
 	};
 
-	complex operator*(complex a, complex b) {
+	template<typename LeftType, typename RightType>
+	complex<RightType> operator*(complex<LeftType> a, complex<RightType> b) {
 		return a *= b;
 	}
 
-	complex operator/(complex a, complex b) {
+	template<typename LeftType, typename RightType>
+	complex<RightType> operator/(complex<LeftType> a, complex<RightType> b) {
 		return a /= b;
 	}
 
-	complex operator+(complex a, complex b) {
+	template<typename LeftType, typename RightType>
+	complex<RightType> operator+(complex<LeftType> a, complex<RightType> b) {
 		return a += b;
 	}
 
-	complex operator-(complex a, complex b) {
+	template<typename LeftType, typename RightType>
+	complex<RightType> operator-(complex<LeftType> a, complex<RightType> b) {
 		return a -= b;
 	}
 
-	complex operator-(complex a) {
+	template<typename Scalar>
+	complex<Scalar> operator-(complex<Scalar> a) {
 		return {-a.real(), -a.imag()};
 	}
 
-	std::ostream& operator<<(std::ostream& os, const complex& comp) {
+	template<typename Scalar>
+	std::ostream& operator<<(std::ostream& os, const complex<Scalar>& comp) {
 		return os << "(" << comp.real() << "," << comp.imag() << ")";
 	}
 }
 
 int main() {
-	my_implementation::complex a {2, 1};
-	my_implementation::complex b {1/a};
-	my_implementation::complex c {a+b*my_implementation::complex{1, 2.3}};
-	
+	my_implementation::complex<double> a {2, 1};
+	my_implementation::complex<double> b {my_implementation::complex<double>{1} / a}; // to do: remove explicit construction
+	my_implementation::complex<double> c {a+b*my_implementation::complex<double>{1, 2.3}};
+
 	std::cout << -a << std::endl;
 	std::cout << b << std::endl;
 	std::cout << c << std::endl;
@@ -125,3 +132,4 @@ int main() {
 	std::cout << c2 << std::endl;
 	return 0;
 }
+
