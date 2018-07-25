@@ -1,2 +1,4 @@
-# cpp_tutorials
-Cpp examples
+### C++ Examples
+Contents: 
+#### class Coin
+Implements basic probability with coins
