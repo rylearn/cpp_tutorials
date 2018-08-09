@@ -62,9 +62,10 @@ bool Stack<T>::isEmpty() const {
 
 template <typename T>
 void Stack<T>::clear() {
-    for (T& val : array) {
-        val = T();
+    for (int i = 0; i < length; ++i) {
+        array[i] = T();
     }
+    length = 0;
 }
 
 template <typename T>
