@@ -30,15 +30,12 @@ void choose_max(vector<int>& piles,
 		if (piles[start] > piles[end]) {
 	        sum += piles[end];
 	        end++;
-	        // cout << "start: " << start << endl;
 	    } 
 	    else if (piles[start] < piles[end]) {
 	        sum += piles[start];
 	        start--;
-	        // cout << "end: " << end << endl;
 	    }
 	    else {
-	        // cout << "Problem" << endl;
 	        while (piles[start] == piles[end]) {
 	            sum += piles[start];
 	            other_sum += piles[end];
@@ -53,27 +50,22 @@ void choose_max(vector<int>& piles,
     if (start < 0) {
         sum += piles[end];
         end++;
-        // cout << "end last: " << end << endl;
         return;
     }
     if (end > (piles.size() - 1)) {
         sum += piles[start];
         start--;
-        // cout << "start last: " << start << endl;
         return;
     }
     if (piles[start] > piles[end]) {
         sum += piles[start];
         start--;
-        // cout << "start: " << start << endl;
     } 
     else if (piles[start] < piles[end]) {
         sum += piles[end];
         end++;
-        // cout << "end: " << end << endl;
     }
     else {
-        // cout << "Problem" << endl;
         while (piles[start] == piles[end]) {
             sum += piles[start];
             other_sum += piles[end];
@@ -88,7 +80,7 @@ void choose_max(vector<int>& piles,
 bool helper(vector<int>& piles, int& start, int& end, 
 	int& alex_sum, int& lee_sum) {
 
-	bool alex_turn = false; // alex goes last
+	bool alex_turn = false;
 	bool first_move = true;
 	while (true) {
         if (alex_turn) {
