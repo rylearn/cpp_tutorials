@@ -1,10 +1,3 @@
-//
-//  main.cpp
-//  functors
-//
-//  Created by qldo18 on 5/5/16.
-//  Copyright (c) 2016 Qildo Inc. All rights reserved.
-//
 
 #include <iostream>
 #include <cmath>
