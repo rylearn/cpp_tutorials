@@ -6,7 +6,10 @@ public:
 	T get();
 
 private:
-	struct Link { T val; Link* next; };
+	struct Link { 
+		T val; 
+		Link* next; 
+	};
 
 	struct Chunk {
 		enum { chunk_size = 15 };
